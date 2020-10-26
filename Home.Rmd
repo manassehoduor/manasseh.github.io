@@ -1,0 +1,10 @@
+---
+title: " "
+pagetitle: "Manasseh"
+author: " "
+---
+
+
+
+
+I'm a data science Practitioner who takes pride in building models that translate data points into business insights. I have 3+ years of experience in project work and freelance jobs. I participate in data science forums such as Tidy Tuesday and Kaggle to boost my skills in knowledge. I'm Skilled in data mining, machine learning, statistics, problem solving, and programming.

@@ -1,0 +1,10 @@
+---
+output: html_document
+---
+
+I’d love to hear from you, so feel free to reach out:
+
+manassehoduor6@gmail.com
+
+Or connect with me on GitHub, Twitter, or Linkedin (links in top right).
+
