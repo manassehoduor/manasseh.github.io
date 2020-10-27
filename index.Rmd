@@ -11,6 +11,6 @@ author: " "
 
 
 
-I'm open to wide range of fields related to data science. I can handle any projects that involves data wrangling, data pre-processing, and data analysis in order to provide ultimate solutions. I graduated from Kenyatta University with a BSc. in Statistical Programming in 2019. I have both worked in both research and finance firms and currently freelancing remotely as a data scientist.   
+I'm open to a wide range of fields related to data science. I can handle projects that involve data wrangling, data pre-processing, and data analysis in order to provide ultimate solutions. I graduated from Kenyatta University with a BSc. in Statistical Programming in 2019. I have both worked in both research and finance firms and currently freelancing remotely as a data scientist. 
 
 My full CV is available [here](files/Manasseh_CV.pdf).
