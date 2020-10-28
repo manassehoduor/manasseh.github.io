@@ -550,6 +550,7 @@ div.tocify {
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
 <div id="recode-function" class="section level1">
 <h1><span class="header-section-number">1</span> recode () function</h1>
+<p>Happy Coding !!!</p>
 <p>In most survey projects, you’ll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and vice versa.</p>
 <p>I’ll create a data frame with 100 random sample with gender and marital status demographic variables.</p>
 <div id="r-libraries-used" class="section level2">
@@ -631,8 +632,8 @@ div.tocify {
 <p><img src="Blog_files/figure-html/unnamed-chunk-6-2.png" width="576" /></p>
 <p>The audience can easily understand the two graphs as the labels are defined.</p>
 </div>
-<div id="recode-recode-gender-and-marital-status-factor-to-number" class="section level2">
-<h2><span class="header-section-number">1.6</span> Recode recode gender and marital status (factor to number)</h2>
+<div id="recode-gender-and-marital-status-factor-to-number" class="section level2">
+<h2><span class="header-section-number">1.6</span> recode gender and marital status (factor to number)</h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>dem.data =<span class="st"> </span>dem.data <span class="op">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
 <span id="cb12-3"><a href="#cb12-3"></a>    <span class="dt">gender.num =</span> <span class="kw">recode</span>(gender.cat, <span class="st">&quot;male&quot;</span> =<span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;female&quot;</span> =<span class="st"> </span><span class="dv">1</span>)</span>

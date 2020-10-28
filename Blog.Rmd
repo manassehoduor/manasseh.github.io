@@ -22,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # recode () function
+Happy Coding !!!
 
 In most survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and vice versa.
 
@@ -99,7 +100,7 @@ dem.data %>%
 
 The audience can easily understand the two graphs as the labels are defined.
 
-## Recode recode gender and marital status (factor to number)
+## recode gender and marital status (factor to number)
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 dem.data = dem.data %>%
   mutate(
