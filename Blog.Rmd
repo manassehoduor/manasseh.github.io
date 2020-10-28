@@ -22,7 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # recode () function
-Happy Coding !!!
+
+- Happy Coding !!!
 
 In most survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and vice versa.
 
