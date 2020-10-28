@@ -4,11 +4,14 @@ pagetitle: "Manasseh"
 author: " "
 output:
   html_document:
+    fig_width: 6
+    fig_height: 5
+    fig_caption: true
     toc: true
     toc_depth: 2
     toc_float: true
     number_sections: TRUE
-    theme: sandstone
+    theme: journal
     highlight: tango
 ---
 
