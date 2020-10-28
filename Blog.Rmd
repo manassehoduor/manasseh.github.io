@@ -1,9 +1,121 @@
 ---
-title: " "
+title: "Value Label in R"
 pagetitle: "Manasseh"
 author: " "
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: TRUE
+    theme: sandstone
+    highlight: tango
 ---
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+# recode () function in R
+In most of the survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and Vice versa.
+
+I’ll create a data frame with 100 random sample with gender and marital status demographic variables.
+
+### R-libraries used
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+library(dplyr)
+library(ggplot2)
+```
+
+
+### Generating data
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+rm(list = ls())
+set.seed(123)
+gender = sample(0:1, 100, replace = TRUE)
+marital.status = sample(1:3, 100, replace = TRUE)
+dem.data = data.frame(gender, marital.status)
+as_tibble(dem.data)
+```
+
+### Data Structure
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+str(dem.data)
+```
+
+The structure of the data show both gender and marital status are numeric attributes, but the two are supposed to be factor variables. The as.factor () is useful in converting variables to factor.
+
+
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+dem.data$gender = as.factor(dem.data$gender)
+dem.data$marital.status = as.factor(dem.data$marital.status)
+str(dem.data)
+```
+
+The gender and marital status are transformed from integer to factor variables. Gender has two levels (0 and 1) while marital status has three levels (1, 2, and 3).
+
+### Visualization
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+dem.data %>%
+  ggplot(aes(gender)) +
+  geom_bar(fill = "navyblue")
+
+dem.data %>%
+  ggplot(aes(marital.status)) +
+  geom_bar(fill = "lawngreen")
+```
+
+As a data analyst you might have prior knowledge of the variable meanings as indicated in the metadata or codebook. However, a reader or the audience might not understand the two plot because they don't know what 0 and 1 mean in gender and 1, 2, and 3 in marital status, hence the need to recode variable.
+
+### recode gender and marital status (Recode number to factor)
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+dem.data = dem.data %>%
+  mutate(
+    gender.cat = recode(gender, "0" = "male", "1" = "female")
+  )
+
+dem.data = dem.data %>%
+  mutate(
+    marital.status.cat = recode(marital.status, "1" = "single", "2" = "married", "3" = "divorced")
+  )
+
+dem.data %>%
+  ggplot(aes(gender.cat)) +
+  geom_bar(fill = "cornflowerblue") +
+  xlab("Gender")
+
+dem.data %>%
+  ggplot(aes(marital.status.cat)) +
+  geom_bar(fill = "brown") +
+  xlab("Marital Status")
+```
+
+
+The audience can easily understand the two graphs as the labels are defined.
+
+### Recode recode gender and marital status (factor to number)
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+dem.data = dem.data %>%
+  mutate(
+    gender.num = recode(gender.cat, "male" = 0, "female" = 1)
+  )
+
+dem.data = dem.data %>%
+  mutate(
+    marital.status.num = recode(marital.status.cat, "single" = 1, "married" = 2, "divorced" = 3)
+  )
+
+dem.data %>%
+  ggplot(aes(gender.num)) +
+  geom_bar(fill = "purple4") +
+  xlab("Gender")
+
+dem.data %>%
+  ggplot(aes(marital.status.num)) +
+  geom_bar(fill = "goldenrod4") +
+  xlab("Marital Status")
+```
+
+Happy Coding !!!
