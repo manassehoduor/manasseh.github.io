@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # recode () function
 
-In most of the survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and Vice versa.
+In most survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and vice versa.
 
 I’ll create a data frame with 100 random sample with gender and marital status demographic variables.
 
