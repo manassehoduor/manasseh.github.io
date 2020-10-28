@@ -18,19 +18,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# recode () function in R
+# recode () function
+
 In most of the survey projects, you'll find the importance to recode variables. In this tutorial, I will explain the steps needed to recode a variable from number to characters and Vice versa.
 
 I’ll create a data frame with 100 random sample with gender and marital status demographic variables.
 
-### R-libraries used
+## R-libraries used
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 library(dplyr)
 library(ggplot2)
 ```
 
 
-### Generating data
+## Generating data
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 rm(list = ls())
 set.seed(123)
@@ -40,7 +41,7 @@ dem.data = data.frame(gender, marital.status)
 as_tibble(dem.data)
 ```
 
-### Data Structure
+## Data Structure
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 str(dem.data)
 ```
@@ -56,7 +57,7 @@ str(dem.data)
 
 The gender and marital status are transformed from integer to factor variables. Gender has two levels (0 and 1) while marital status has three levels (1, 2, and 3).
 
-### Visualization
+## Visualization
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 dem.data %>%
   ggplot(aes(gender)) +
@@ -69,7 +70,7 @@ dem.data %>%
 
 As a data analyst you might have prior knowledge of the variable meanings as indicated in the metadata or codebook. However, a reader or the audience might not understand the two plot because they don't know what 0 and 1 mean in gender and 1, 2, and 3 in marital status, hence the need to recode variable.
 
-### recode gender and marital status (Recode number to factor)
+## recode gender and marital status (Recode number to factor)
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 dem.data = dem.data %>%
   mutate(
@@ -95,7 +96,7 @@ dem.data %>%
 
 The audience can easily understand the two graphs as the labels are defined.
 
-### Recode recode gender and marital status (factor to number)
+## Recode recode gender and marital status (factor to number)
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 dem.data = dem.data %>%
   mutate(
