@@ -558,7 +558,8 @@ div.tocify {
 <div id="r-libraries-used" class="section level2">
 <h2><span class="header-section-number">1.1</span> R-libraries used</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(vtree)</span></code></pre></div>
 </div>
 <div id="generating-data" class="section level2">
 <h2><span class="header-section-number">1.2</span> Generating data</h2>
@@ -656,6 +657,7 @@ div.tocify {
 <span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;goldenrod4&quot;</span>) <span class="op">+</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Marital Status&quot;</span>)</span></code></pre></div>
 <p><img src="Blog_files/figure-html/unnamed-chunk-7-2.png" width="576" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>p =<span class="st"> </span><span class="kw">vtree</span>(dem.data, <span class="st">&quot;gender.cat marital.status.cat&quot;</span>)</span></code></pre></div>
 <p>Happy Coding !!!</p>
 </div>
 </div>

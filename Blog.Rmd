@@ -33,6 +33,7 @@ I’ll create a data frame with 100 random sample with gender and marital status
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 library(dplyr)
 library(ggplot2)
+library(vtree)
 ```
 
 
@@ -122,6 +123,8 @@ dem.data %>%
   ggplot(aes(marital.status.num)) +
   geom_bar(fill = "goldenrod4") +
   xlab("Marital Status")
+
+p = vtree(dem.data, "gender.cat marital.status.cat")
 ```
 
 Happy Coding !!!
