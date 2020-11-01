@@ -10,7 +10,7 @@ author: " "
 
 
 
-I'm open to a wide range of fields related to data science. I can handle projects that involve data wrangling, data pre-processing, and data analysis in order to provide ultimate solutions. I studied Statistics and Programming, finishing my Bachelor's degree in 2019. I have worked in both research and finance firms. I am currently freelancing remotely as a data scientist and tutoring on R.
+I'm open to a wide range of fields related to data science. I can handle projects that involve data wrangling, data pre-processing, and data analysis in order to provide ultimate solutions. I studied Statistics and Programming, finished my Bachelor's degree in 2019. I have worked in both research and finance firms. I am currently freelancing remotely as a data scientist and tutoring on R.
 
 
 If my blog has helped you, please [buy me a coffee on Ko-fi!](https://ko-fi.com/manasseh)
