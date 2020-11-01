@@ -4,7 +4,7 @@ navbar:
   title: "Manasseh"
   left:
     - text: "Home"
-      href: Home.html
+      href: About.html
     - text: "Rugby Stats"
       href: Rugby.html
     - text: "Blog"

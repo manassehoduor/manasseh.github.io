@@ -127,12 +127,9 @@ dem.data %>%
 p = vtree(dem.data, "gender.cat marital.status.cat")
 ```
 
-Happy Coding !!!
 
-
-# Impute missing data using mean and median
-
-- Happy Coding !!!
+# Impute missing data 
+using mean and median
 
 Missing values or missing data can be defined as the data value which is not available for a specific variable (s) in the observation of interest. Missing data have significant effect on final interpretation of results obtained from the data with missing values. Specifically, missing data can reduces statistical power, cause bias in the estimation of parameters, and can reduce the representativeness of the samples. However, the problem can be sorted out using a number of imputation methods. The blog series will exploit mean and median missing value imputations methods.
 
