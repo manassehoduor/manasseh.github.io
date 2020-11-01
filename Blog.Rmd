@@ -1,5 +1,5 @@
 ---
-title: "Value Label in R"
+title: "The Beauty of R"
 pagetitle: "Manasseh"
 author: " "
 output:
