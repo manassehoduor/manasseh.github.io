@@ -548,8 +548,8 @@ div.tocify {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<div id="recode-function" class="section level1">
-<h1><span class="header-section-number">1</span> recode () function</h1>
+<div id="recode-variables" class="section level1">
+<h1><span class="header-section-number">1</span> recode variables</h1>
 <ul>
 <li>Happy Coding !!!</li>
 </ul>
@@ -561,8 +561,8 @@ div.tocify {
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(vtree)</span></code></pre></div>
 </div>
-<div id="generating-data" class="section level2">
-<h2><span class="header-section-number">1.2</span> Generating data</h2>
+<div id="generate-data" class="section level2">
+<h2><span class="header-section-number">1.2</span> Generate data</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a>gender =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
@@ -611,8 +611,8 @@ div.tocify {
 <p><img src="Blog_files/figure-html/unnamed-chunk-5-2.png" width="480" /></p>
 <p>As a data analyst you might have prior knowledge of the variable meanings as indicated in the metadata or codebook. However, a reader or the audience might not understand the two plot because they don’t know what 0 and 1 mean in gender and 1, 2, and 3 in marital status, hence the need to recode variable.</p>
 </div>
-<div id="recode-gender-and-marital-status-recode-number-to-factor" class="section level2">
-<h2><span class="header-section-number">1.5</span> recode gender and marital status (Recode number to factor)</h2>
+<div id="recode-gender-and-marital-status-number-to-factor" class="section level2">
+<h2><span class="header-section-number">1.5</span> recode gender and marital status (number to factor)</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dem.data =<span class="st"> </span>dem.data <span class="op">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
 <span id="cb10-3"><a href="#cb10-3"></a>    <span class="dt">gender.cat =</span> <span class="kw">recode</span>(gender, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;male&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;female&quot;</span>)</span>
@@ -659,6 +659,213 @@ div.tocify {
 <p><img src="Blog_files/figure-html/unnamed-chunk-7-2.png" width="480" /></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>p =<span class="st"> </span><span class="kw">vtree</span>(dem.data, <span class="st">&quot;gender.cat marital.status.cat&quot;</span>)</span></code></pre></div>
 <p>Happy Coding !!!</p>
+</div>
+</div>
+<div id="impute-missing-data-using-mean-and-median" class="section level1">
+<h1><span class="header-section-number">2</span> Impute missing data using mean and median</h1>
+<ul>
+<li>Happy Coding !!!</li>
+</ul>
+<p>Missing values or missing data can be defined as the data value which is not available for a specific variable (s) in the observation of interest. Missing data have significant effect on final interpretation of results obtained from the data with missing values. Specifically, missing data can reduces statistical power, cause bias in the estimation of parameters, and can reduce the representativeness of the samples. However, the problem can be sorted out using a number of imputation methods. The blog series will exploit mean and median missing value imputations methods.</p>
+<p>I’ll create a data frame with 50 random sample with multivariate analysis test scores and Income variables with additional missing values.</p>
+<div id="r-libraries-used-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> R-libraries used</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+</div>
+<div id="generate-data-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Generate data</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>n =<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>df =<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="dt">score =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">40</span><span class="op">:</span><span class="dv">100</span>), n, <span class="dt">rep =</span> <span class="ot">TRUE</span>), </span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="dt">income =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1200</span><span class="op">:</span><span class="dv">5000</span>), n, <span class="dt">rep =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb16-8"><a href="#cb16-8"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9"></a></span>
+<span id="cb16-10"><a href="#cb16-10"></a>df =<span class="st"> </span><span class="kw">apply</span> (df, <span class="dv">2</span>, <span class="cf">function</span>(x) {x[<span class="kw">sample</span>( <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>n), <span class="kw">floor</span>(n<span class="op">/</span><span class="dv">5</span>))] &lt;-<span class="st"> </span><span class="ot">NA</span>; x} )</span>
+<span id="cb16-11"><a href="#cb16-11"></a>df =<span class="st"> </span><span class="kw">as.data.frame</span>(df)</span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="kw">class</span>(df)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  2 variables:
+##  $ score : int  84 76 74 77 NA 99 66 64 53 NA ...
+##  $ income: int  1805 4498 2463 NA 4787 2051 1471 4376 NA 2925 ...</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">as_tibble</span>(df)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 2
+##    score income
+##    &lt;int&gt;  &lt;int&gt;
+##  1    84   1805
+##  2    76   4498
+##  3    74   2463
+##  4    77     NA
+##  5    NA   4787
+##  6    99   2051
+##  7    66   1471
+##  8    64   4376
+##  9    53     NA
+## 10    NA   2925
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">colSums</span>(<span class="kw">is.na</span>(df))</span></code></pre></div>
+<pre><code>##  score income 
+##     10     10</code></pre>
+</div>
+<div id="check-columns-with-nas" class="section level2">
+<h2><span class="header-section-number">2.3</span> Check columns with NAs</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Return the column names containing missing observations</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>list_na =<span class="st"> </span><span class="kw">colnames</span>(df)[ <span class="kw">apply</span>(df, <span class="dv">2</span>, anyNA) ]</span>
+<span id="cb24-3"><a href="#cb24-3"></a>list_na</span></code></pre></div>
+<pre><code>## [1] &quot;score&quot;  &quot;income&quot;</code></pre>
+</div>
+<div id="create-mean" class="section level2">
+<h2><span class="header-section-number">2.4</span> Create mean</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>average_missing =<span class="st"> </span><span class="kw">apply</span>(df[, <span class="kw">colnames</span>(df) <span class="op">%in%</span><span class="st"> </span>list_na],</span>
+<span id="cb26-2"><a href="#cb26-2"></a>      <span class="dv">2</span>,</span>
+<span id="cb26-3"><a href="#cb26-3"></a>      mean,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>      <span class="dt">na.rm =</span>  <span class="ot">TRUE</span>)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>average_missing</span></code></pre></div>
+<pre><code>##  score income 
+##   69.6 2854.4</code></pre>
+</div>
+<div id="create-median" class="section level2">
+<h2><span class="header-section-number">2.5</span> Create median</h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>median_missing =<span class="st"> </span><span class="kw">apply</span>(df[,<span class="kw">colnames</span>(df) <span class="op">%in%</span><span class="st"> </span>list_na],</span>
+<span id="cb28-2"><a href="#cb28-2"></a>      <span class="dv">2</span>,</span>
+<span id="cb28-3"><a href="#cb28-3"></a>      median,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>      <span class="dt">na.rm =</span>  <span class="ot">TRUE</span>)</span>
+<span id="cb28-5"><a href="#cb28-5"></a>median_missing</span></code></pre></div>
+<pre><code>##  score income 
+##   69.0 2842.5</code></pre>
+</div>
+<div id="replace-nas-using-mean" class="section level2">
+<h2><span class="header-section-number">2.6</span> Replace NAs using mean</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Create a new variable with mean</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>df_replace_mean =<span class="st"> </span>df <span class="op">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">replace_mean_score  =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(score), average_missing[<span class="dv">1</span>], score),</span>
+<span id="cb30-4"><a href="#cb30-4"></a>   <span class="dt">replace_mean_income =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(income), average_missing[<span class="dv">2</span>], income))</span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="kw">tibble</span>(df_replace_mean)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 4
+##    score income replace_mean_score replace_mean_income
+##    &lt;int&gt;  &lt;int&gt;              &lt;dbl&gt;               &lt;dbl&gt;
+##  1    84   1805               84                 1805 
+##  2    76   4498               76                 4498 
+##  3    74   2463               74                 2463 
+##  4    77     NA               77                 2854.
+##  5    NA   4787               69.6               4787 
+##  6    99   2051               99                 2051 
+##  7    66   1471               66                 1471 
+##  8    64   4376               64                 4376 
+##  9    53     NA               53                 2854.
+## 10    NA   2925               69.6               2925 
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(df_replace_mean))</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+</div>
+<div id="replacing-nas-using-median" class="section level2">
+<h2><span class="header-section-number">2.7</span> Replacing NAs using median</h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Create a new variable with median</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>df_replace_median =<span class="st"> </span>df <span class="op">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="st">            </span><span class="kw">mutate</span>(<span class="dt">replace_median_score  =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(score), median_missing[<span class="dv">1</span>], score), </span>
+<span id="cb34-4"><a href="#cb34-4"></a>            <span class="dt">replace_median_income =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(income), median_missing[<span class="dv">2</span>], income))</span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="kw">tibble</span>(df_replace_median)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 4
+##    score income replace_median_score replace_median_income
+##    &lt;int&gt;  &lt;int&gt;                &lt;dbl&gt;                 &lt;dbl&gt;
+##  1    84   1805                   84                 1805 
+##  2    76   4498                   76                 4498 
+##  3    74   2463                   74                 2463 
+##  4    77     NA                   77                 2842.
+##  5    NA   4787                   69                 4787 
+##  6    99   2051                   99                 2051 
+##  7    66   1471                   66                 1471 
+##  8    64   4376                   64                 4376 
+##  9    53     NA                   53                 2842.
+## 10    NA   2925                   69                 2925 
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(df_replace_median))</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+</div>
+<div id="direct-na-impute-using-mean" class="section level2">
+<h2><span class="header-section-number">2.8</span> direct NA impute using mean</h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># Quick code to replace missing values with the mean</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>df_impute_mean =<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb38-3"><a href="#cb38-3"></a>    <span class="kw">sapply</span>(</span>
+<span id="cb38-4"><a href="#cb38-4"></a>        df,</span>
+<span id="cb38-5"><a href="#cb38-5"></a>        <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x),</span>
+<span id="cb38-6"><a href="#cb38-6"></a>            <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb38-7"><a href="#cb38-7"></a>            x)))</span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="kw">tibble</span>(df_impute_mean)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 2
+##    score income
+##    &lt;dbl&gt;  &lt;dbl&gt;
+##  1  84    1805 
+##  2  76    4498 
+##  3  74    2463 
+##  4  77    2854.
+##  5  69.6  4787 
+##  6  99    2051 
+##  7  66    1471 
+##  8  64    4376 
+##  9  53    2854.
+## 10  69.6  2925 
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(df_impute_mean))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+<div id="direct-na-impute-using-median" class="section level2">
+<h2><span class="header-section-number">2.9</span> direct NA impute using median</h2>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># Quick code to replace missing values with the median</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>df_impute_median =<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb42-3"><a href="#cb42-3"></a>    <span class="kw">sapply</span>(</span>
+<span id="cb42-4"><a href="#cb42-4"></a>        df,</span>
+<span id="cb42-5"><a href="#cb42-5"></a>        <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x),</span>
+<span id="cb42-6"><a href="#cb42-6"></a>            <span class="kw">median</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb42-7"><a href="#cb42-7"></a>            x)))</span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="kw">tibble</span>(df_impute_median)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 2
+##    score income
+##    &lt;dbl&gt;  &lt;dbl&gt;
+##  1    84  1805 
+##  2    76  4498 
+##  3    74  2463 
+##  4    77  2842.
+##  5    69  4787 
+##  6    99  2051 
+##  7    66  1471 
+##  8    64  4376 
+##  9    53  2842.
+## 10    69  2925 
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(df_impute_median))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+<div id="direct-na-impute-using-mean-for-numeric-attributes" class="section level2">
+<h2><span class="header-section-number">2.10</span> direct NA impute using mean for numeric attributes</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># Replace missing values in the numeric attributes using mean</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>df[<span class="kw">sapply</span>(df, is.numeric)] =<span class="st"> </span><span class="kw">lapply</span>(df[<span class="kw">sapply</span>(df, is.numeric)], </span>
+<span id="cb46-3"><a href="#cb46-3"></a>                                      <span class="cf">function</span>(x)</span>
+<span id="cb46-4"><a href="#cb46-4"></a>                                        <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), </span>
+<span id="cb46-5"><a href="#cb46-5"></a>                                               <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), x))</span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="kw">tibble</span>(df)</span></code></pre></div>
+<pre><code>## # A tibble: 50 x 2
+##    score income
+##    &lt;dbl&gt;  &lt;dbl&gt;
+##  1  84    1805 
+##  2  76    4498 
+##  3  74    2463 
+##  4  77    2854.
+##  5  69.6  4787 
+##  6  99    2051 
+##  7  66    1471 
+##  8  64    4376 
+##  9  53    2854.
+## 10  69.6  2925 
+## # ... with 40 more rows</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(df))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<ul>
+<li>Happy Coding !!!</li>
+</ul>
 </div>
 </div>
 

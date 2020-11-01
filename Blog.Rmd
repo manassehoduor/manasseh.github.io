@@ -21,7 +21,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# recode () function
+# recode variables
 
 - Happy Coding !!!
 
@@ -37,7 +37,7 @@ library(vtree)
 ```
 
 
-## Generating data
+## Generate data
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 rm(list = ls())
 set.seed(123)
@@ -76,7 +76,7 @@ dem.data %>%
 
 As a data analyst you might have prior knowledge of the variable meanings as indicated in the metadata or codebook. However, a reader or the audience might not understand the two plot because they don't know what 0 and 1 mean in gender and 1, 2, and 3 in marital status, hence the need to recode variable.
 
-## recode gender and marital status (Recode number to factor)
+## recode gender and marital status (number to factor)
 ```{r echo = TRUE, warning = FALSE, message = FALSE}
 dem.data = dem.data %>%
   mutate(
@@ -128,3 +128,125 @@ p = vtree(dem.data, "gender.cat marital.status.cat")
 ```
 
 Happy Coding !!!
+
+
+# Impute missing data using mean and median
+
+- Happy Coding !!!
+
+Missing values or missing data can be defined as the data value which is not available for a specific variable (s) in the observation of interest. Missing data have significant effect on final interpretation of results obtained from the data with missing values. Specifically, missing data can reduces statistical power, cause bias in the estimation of parameters, and can reduce the representativeness of the samples. However, the problem can be sorted out using a number of imputation methods. The blog series will exploit mean and median missing value imputations methods.
+
+
+I’ll create a data frame with 50 random sample with multivariate analysis test scores and Income variables with additional missing values.
+
+## R-libraries used
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+library(dplyr)
+```
+
+
+## Generate data
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+rm(list = ls())
+set.seed(456)
+
+n = 50
+df = data.frame(
+score = sample(c(40:100), n, rep = TRUE), 
+income = sample(c(1200:5000), n, rep = TRUE)
+)
+
+df = apply (df, 2, function(x) {x[sample( c(1:n), floor(n/5))] <- NA; x} )
+df = as.data.frame(df)
+class(df)
+str(df)
+as_tibble(df)
+colSums(is.na(df))
+```
+
+## Check columns with NAs
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Return the column names containing missing observations
+list_na = colnames(df)[ apply(df, 2, anyNA) ]
+list_na
+```
+
+## Create mean
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+average_missing = apply(df[, colnames(df) %in% list_na],
+      2,
+      mean,
+      na.rm =  TRUE)
+average_missing
+```
+
+## Create median
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+median_missing = apply(df[,colnames(df) %in% list_na],
+      2,
+      median,
+      na.rm =  TRUE)
+median_missing
+```
+
+
+## Replace NAs using mean
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Create a new variable with mean
+df_replace_mean = df %>%
+   mutate(replace_mean_score  = ifelse(is.na(score), average_missing[1], score),
+   replace_mean_income = ifelse(is.na(income), average_missing[2], income))
+tibble(df_replace_mean)
+sum(is.na(df_replace_mean))
+```
+
+
+## Replacing NAs using median
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Create a new variable with median
+df_replace_median = df %>%
+            mutate(replace_median_score  = ifelse(is.na(score), median_missing[1], score), 
+            replace_median_income = ifelse(is.na(income), median_missing[2], income))
+tibble(df_replace_median)
+sum(is.na(df_replace_median))
+```
+
+## direct NA impute using mean 
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Quick code to replace missing values with the mean
+df_impute_mean = data.frame(
+    sapply(
+        df,
+        function(x) ifelse(is.na(x),
+            mean(x, na.rm = TRUE),
+            x)))
+tibble(df_impute_mean)
+sum(is.na(df_impute_mean))
+```
+
+## direct NA impute using median
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Quick code to replace missing values with the median
+df_impute_median = data.frame(
+    sapply(
+        df,
+        function(x) ifelse(is.na(x),
+            median(x, na.rm = TRUE),
+            x)))
+tibble(df_impute_median)
+sum(is.na(df_impute_median))
+```
+
+
+## direct NA impute using mean for numeric attributes
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+# Replace missing values in the numeric attributes using mean
+df[sapply(df, is.numeric)] = lapply(df[sapply(df, is.numeric)], 
+                                      function(x)
+                                        ifelse(is.na(x), 
+                                               mean(x, na.rm = TRUE), x))
+tibble(df)
+sum(is.na(df))
+```
+
+- Happy Coding !!!
