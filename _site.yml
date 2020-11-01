@@ -3,9 +3,9 @@ output_dir: "."
 navbar:
   title: "Manasseh"
   left:
-    - text: "Home"
+    - text: "About"
       href: About.html
-    - text: "Rugby Stats"
+    - text: "Rugby Profile"
       href: Rugby.html
     - text: "Blog"
       href: Blog.html
