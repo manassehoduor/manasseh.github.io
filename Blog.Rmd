@@ -248,3 +248,76 @@ sum(is.na(df))
 ```
 
 - Happy Coding !!!
+
+
+## R-libraries used
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+library(reticulate)
+library(dplyr)
+```
+
+## Generate data
+```{r echo = TRUE, warning = FALSE, message = FALSE}
+rm(list = ls())
+set.seed(567)
+
+n = 250
+df = data.frame(
+loan.amount = sample(c(800:1500), n, rep = TRUE)
+)
+
+# Add outliers in the data
+df = df %>% 
+  add_row(loan.amount = c(7000,7050))
+
+as_tibble(df)
+```
+
+
+```{python, echo = FALSE}
+print(r.df.shape)
+print(r.df.info())
+r.df.describe()
+```
+
+```{python, echo = FALSE}
+import matplotlib.pyplot as plt
+r.df.plot.hist(grid = False, bins = 20, rwidth = 0.9,
+                   color = 'purple')
+```
+
+
+
+```{python, echo = TRUE}
+# identify outliers with interquartile range
+from numpy import percentile
+
+# calculate interquartile range
+q25, q75 = percentile(r.df.loc[:1], 25), percentile(r.df.loc[:1], 75)
+iqr = q75 - q25
+iqr
+
+print('Percentiles: 25th=%.3f, 75th=%.3f, IQR=%.3f' % (q25, q75, iqr))
+
+# calculate the outlier cutoff
+cut_off = iqr * 1.5
+lower, upper = q25 - cut_off, q75 + cut_off
+
+lower
+upper
+```
+
+```{python, echo = TRUE}
+# identify outliers
+outliers = [x for x in r.df.loc[:1] if x < lower or x > upper]
+print('Identified outliers: %d' % len(outliers))
+
+# remove outliers
+outliers_removed = [x for x in r.df.loc[:1] if x >= lower and x <= upper]
+print('Non-outlier observations: %d' % len(outliers_removed))
+```
+
+
+
+
+
