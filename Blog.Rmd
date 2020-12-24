@@ -307,15 +307,7 @@ lower
 upper
 ```
 
-```{python, echo = TRUE}
-# identify outliers
-outliers = [x for x in r.df.loc[:1] if x < lower or x > upper]
-print('Identified outliers: %d' % len(outliers))
 
-# remove outliers
-outliers_removed = [x for x in r.df.loc[:1] if x >= lower and x <= upper]
-print('Non-outlier observations: %d' % len(outliers_removed))
-```
 
 
 
