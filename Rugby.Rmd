@@ -9,7 +9,8 @@ output:
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-<img src="images/Manasseh_rugby.jpg" style="width:30%; border:20px thin; margin-right: 30px" align="right">
+<img src="images/Manasseh_rugby.jpg" style="width:30%; border-radius: 50%; border:20px thin; margin-right: 30px" align="right">
+
 
 ##### Specialization: 
 - 15s aside Rugby
@@ -18,7 +19,7 @@ output:
 - Height: 6'1
 - Weight: 104 kgs
 
-#### Primary Position 
+##### Primary Position 
 - Back-Row
 
 ##### Secondary Position 
