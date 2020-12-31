@@ -9,7 +9,7 @@ output:
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-<img src="images/Manasseh_rugby.jpg" style="width:30%; border-radius: 50%; border:20px thin; margin-right: 30px" align="right">
+<img src="images/Manasseh.rugby.jpg" style="width:30%; border:30px thin; margin-right: 40px" align="right">
 
 
 ##### Specialization: 
